@@ -29,3 +29,8 @@ export interface AppScreen extends Container {
   bundles(): string[];
 }
 
+export class Cachorro {
+  update(): string {
+    return "aaa"
+  }
+}

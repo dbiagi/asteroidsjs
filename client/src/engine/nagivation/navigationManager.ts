@@ -1,7 +1,7 @@
 import {Assets, Container, Ticker} from "pixi.js";
 import {AppScreen} from "./appScreen.ts";
 
-export class NagivationManager {
+export class NavigationManager {
   private container: Container = new Container();
   private background?: Container;
   private currentScreen?: AppScreen;

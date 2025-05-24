@@ -1,10 +1,27 @@
-import {defineConfig, type Plugin, type ResolvedConfig} from 'vite';
+import {defineConfig, Plugin, ResolvedConfig} from 'vite';
 import {AssetPack} from '@assetpack/core';
 //@ts-ignore
 import {pixiPipes} from '@assetpack/core/pixi'
+// @ts-ignore
+import {compilerOptions} from './tsconfig.json'
+import {resolve} from "path";
+
+type TsConfigPaths = {
+  [s: string]: string[];
+}
+
+function pathAlias(tsConfigPaths: TsConfigPaths) {
+  let aliases = {}
+
+  for (const [key, value] of Object.entries(tsConfigPaths)) {
+    aliases[key] = value.map(v => resolve(v))
+  }
+
+  return aliases
+}
 
 function assetpackPlugin(): Plugin {
-  const apConfig = {
+  const config = {
     entry: './raw-assets',
     output: './public/assets',
     pipes: [...pixiPipes({
@@ -23,17 +40,17 @@ function assetpackPlugin(): Plugin {
     configResolved(resolvedConfig) {
       mode = resolvedConfig.command;
       if (!resolvedConfig.publicDir) return;
-      if (apConfig.output) return;
+      if (config.output) return;
       const publicDir = resolvedConfig.publicDir.replace(process.cwd(), '');
-      apConfig.output = `.${publicDir}/assets/`;
+      config.output = `.${publicDir}/assets/`;
     },
     buildStart: async () => {
       if (mode === 'serve') {
         if (ap) return;
-        ap = new AssetPack(apConfig);
+        ap = new AssetPack(config);
         void ap.watch();
       } else {
-        await new AssetPack(apConfig).run();
+        await new AssetPack(config).run();
       }
     },
     buildEnd: async () => {
@@ -53,8 +70,6 @@ export default defineConfig({
   },
   plugins: [assetpackPlugin()],
   resolve: {
-    alias: {
-      '@src': '/src',
-    },
+    alias: pathAlias(compilerOptions.paths),
   }
 });

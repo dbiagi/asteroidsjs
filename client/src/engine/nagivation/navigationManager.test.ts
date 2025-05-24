@@ -1,4 +1,5 @@
 import {Container} from 'pixi.js';
+import {Cachorro} from "@app/engine/nagivation/appScreen.ts";
 // import {NagivationManager} from './navigationManager';
 
 // Mock pixi.js modules
@@ -22,5 +23,7 @@ describe('NagivationManager', () => {
   it('should be defined', () => {
     const c = new Container()
     expect(c.width).toBe(800)
+    const c1 = new Cachorro()
+    expect(c1.update()).toBe("aaa")
   });
 });
