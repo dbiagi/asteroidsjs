@@ -1,29 +1,23 @@
-import {Container} from 'pixi.js';
-import {Cachorro} from "@app/engine/nagivation/appScreen.ts";
-// import {NagivationManager} from './navigationManager';
+import { Container } from "pixi.js";
 
-// Mock pixi.js modules
-jest.mock('pixi.js', () => ({
+jest.mock("pixi.js", () => ({
   Container: jest.fn().mockImplementation(() => ({
     addChild: jest.fn(),
     removeChild: jest.fn(),
     width: 800,
-    height: 600
+    height: 600,
   })),
   Ticker: jest.fn().mockImplementation(() => ({
     add: jest.fn(),
-    remove: jest.fn()
+    remove: jest.fn(),
   })),
   Assets: {
-    loadBundle: jest.fn()
-  }
+    loadBundle: jest.fn(),
+  },
 }));
 
-describe('NagivationManager', () => {
-  it('should be defined', () => {
-    const c = new Container()
-    expect(c.width).toBe(800)
-    const c1 = new Cachorro()
-    expect(c1.update()).toBe("aaa")
+describe("NavigationManager", () => {
+  describe("showScreen", () => {
+    it("Should show navigation bar", () => {});
   });
 });

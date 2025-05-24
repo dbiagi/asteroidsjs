@@ -1,5 +1,5 @@
-import {Assets, Container, Ticker} from "pixi.js";
-import {AppScreen} from "./appScreen.ts";
+import { Assets, Container, Ticker } from "pixi.js";
+import { AppScreen } from "./appScreen.ts";
 
 export class NavigationManager {
   private container: Container = new Container();
@@ -13,30 +13,30 @@ export class NavigationManager {
     this.ticker = ticker;
 
     if (this.background) {
-      this.container.addChild(this.background)
+      this.container.addChild(this.background);
     }
   }
 
   public async showScreen(screen: AppScreen): Promise<void> {
     if (this.currentScreen) {
-      this.currentScreen.interactiveChildren = false
+      this.currentScreen.interactiveChildren = false;
     }
 
     const onLoad = screen.onLoad();
     if (screen.bundles().length > 0) {
-      await Assets.loadBundle(screen.bundles(), progress => {
-        if (onLoad) onLoad(progress * 100)
-      })
+      await Assets.loadBundle(screen.bundles(), (progress) => {
+        if (onLoad) onLoad(progress * 100);
+      });
 
-      if (onLoad) onLoad(100)
+      if (onLoad) onLoad(100);
     }
 
-    if(this.currentScreen) {
+    if (this.currentScreen) {
       await this.hideAndRemoveScreen(this.currentScreen);
     }
 
-    screen.prepare()
-    screen.resize(this.container.width, this.container.height)
+    screen.prepare();
+    screen.resize(this.container.width, this.container.height);
 
     const onUpdate = screen.onUpdate();
     if (onUpdate) {

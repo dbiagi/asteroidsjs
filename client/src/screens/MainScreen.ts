@@ -1,10 +1,7 @@
-import {Container} from "pixi.js";
-import {Cachorro} from "@app/engine/nagivation/appScreen.ts";
+import { Container } from "pixi.js";
 
 export class MainScreen extends Container {
   constructor() {
     super();
-
-    new Cachorro()
   }
 }

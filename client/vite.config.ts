@@ -1,51 +1,53 @@
-import {defineConfig, Plugin, ResolvedConfig} from 'vite';
-import {AssetPack} from '@assetpack/core';
-//@ts-ignore
-import {pixiPipes} from '@assetpack/core/pixi'
-// @ts-ignore
-import {compilerOptions} from './tsconfig.json'
-import {resolve} from "path";
+import { defineConfig, Plugin, ResolvedConfig } from "vite";
+import { AssetPack } from "@assetpack/core";
+// @ts-expect-error TS2307: Cannot find module
+import { pixiPipes } from "@assetpack/core/pixi";
+// @ts-expect-error TS2732: Cannot find module
+import { compilerOptions } from "./tsconfig.json";
+import { resolve } from "path";
 
 type TsConfigPaths = {
   [s: string]: string[];
-}
+};
 
 function pathAlias(tsConfigPaths: TsConfigPaths) {
-  let aliases = {}
+  const aliases = {};
 
   for (const [key, value] of Object.entries(tsConfigPaths)) {
-    aliases[key] = value.map(v => resolve(v))
+    aliases[key] = value.map((v) => resolve(v));
   }
 
-  return aliases
+  return aliases;
 }
 
 function assetpackPlugin(): Plugin {
   const config = {
-    entry: './raw-assets',
-    output: './public/assets',
-    pipes: [...pixiPipes({
-      cacheBust: true,
-      manifest: {
-        output: './src/manifest.json',
-      },
-    })],
+    entry: "./raw-assets",
+    output: "./public/assets",
+    pipes: [
+      ...pixiPipes({
+        cacheBust: true,
+        manifest: {
+          output: "./src/manifest.json",
+        },
+      }),
+    ],
   };
 
-  let mode: ResolvedConfig['command'];
+  let mode: ResolvedConfig["command"];
   let ap: AssetPack | undefined;
 
   return {
-    name: 'vite-plugin-assetpack',
+    name: "vite-plugin-assetpack",
     configResolved(resolvedConfig) {
       mode = resolvedConfig.command;
       if (!resolvedConfig.publicDir) return;
       if (config.output) return;
-      const publicDir = resolvedConfig.publicDir.replace(process.cwd(), '');
+      const publicDir = resolvedConfig.publicDir.replace(process.cwd(), "");
       config.output = `.${publicDir}/assets/`;
     },
     buildStart: async () => {
-      if (mode === 'serve') {
+      if (mode === "serve") {
         if (ap) return;
         ap = new AssetPack(config);
         void ap.watch();
@@ -71,5 +73,5 @@ export default defineConfig({
   plugins: [assetpackPlugin()],
   resolve: {
     alias: pathAlias(compilerOptions.paths),
-  }
+  },
 });

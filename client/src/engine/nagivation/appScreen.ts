@@ -1,4 +1,4 @@
-import {Container} from "pixi.js";
+import { Container } from "pixi.js";
 
 type UpdateFunction = () => void;
 type OnLoadFunction = (progress: number) => void;
@@ -27,10 +27,4 @@ export interface AppScreen extends Container {
 
   // Bundles necessary before show
   bundles(): string[];
-}
-
-export class Cachorro {
-  update(): string {
-    return "aaa"
-  }
 }
