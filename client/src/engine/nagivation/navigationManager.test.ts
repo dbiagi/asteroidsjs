@@ -1,23 +1,14 @@
-import { Container } from "pixi.js";
-
-jest.mock("pixi.js", () => ({
-  Container: jest.fn().mockImplementation(() => ({
-    addChild: jest.fn(),
-    removeChild: jest.fn(),
-    width: 800,
-    height: 600,
-  })),
-  Ticker: jest.fn().mockImplementation(() => ({
-    add: jest.fn(),
-    remove: jest.fn(),
-  })),
-  Assets: {
-    loadBundle: jest.fn(),
-  },
-}));
+import { Container, Ticker } from "pixi.js";
+import { NavigationManager } from "@app/engine/nagivation/NavigationManager.ts";
 
 describe("NavigationManager", () => {
+  const container = new Container();
+  const ticker = new Ticker();
+  const navigationManager = new NavigationManager(container, ticker);
+
   describe("showScreen", () => {
-    it("Should show navigation bar", () => {});
+    it("given a bundle array should call Assets.loadBundle with the bundle array", () => {
+      // TODO: mock is not working properly
+    });
   });
 });

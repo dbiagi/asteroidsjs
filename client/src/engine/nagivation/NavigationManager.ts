@@ -1,5 +1,5 @@
 import { Assets, Container, Ticker } from "pixi.js";
-import { AppScreen } from "./appScreen.ts";
+import { AppScreen } from "./AppScreen.ts";
 
 export class NavigationManager {
   private container: Container = new Container();
@@ -43,6 +43,8 @@ export class NavigationManager {
       this.ticker.add(onUpdate, screen);
     }
 
+    this.container.addChild(screen);
+
     screen.interactiveChildren = false;
     await screen.show();
     screen.interactiveChildren = true;
@@ -65,5 +67,6 @@ export class NavigationManager {
     }
 
     screen.reset()?.();
+    screen.destroy();
   }
 }

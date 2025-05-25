@@ -2,23 +2,7 @@ import { defineConfig, Plugin, ResolvedConfig } from "vite";
 import { AssetPack } from "@assetpack/core";
 // @ts-expect-error TS2307: Cannot find module
 import { pixiPipes } from "@assetpack/core/pixi";
-// @ts-expect-error TS2732: Cannot find module
-import { compilerOptions } from "./tsconfig.json";
-import { resolve } from "path";
-
-type TsConfigPaths = {
-  [s: string]: string[];
-};
-
-function pathAlias(tsConfigPaths: TsConfigPaths) {
-  const aliases = {};
-
-  for (const [key, value] of Object.entries(tsConfigPaths)) {
-    aliases[key] = value.map((v) => resolve(v));
-  }
-
-  return aliases;
-}
+import tsconfigPaths from "vite-tsconfig-paths";
 
 function assetpackPlugin(): Plugin {
   const config = {
@@ -70,8 +54,5 @@ export default defineConfig({
     port: 8080,
     open: true,
   },
-  plugins: [assetpackPlugin()],
-  resolve: {
-    alias: pathAlias(compilerOptions.paths),
-  },
+  plugins: [assetpackPlugin(), tsconfigPaths()],
 });
