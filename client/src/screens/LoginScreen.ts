@@ -31,3 +31,9 @@ export class LoginScreen extends AppScreen {
     return bundle;
   }
 }
+
+export class Abc {
+  id(): string {
+    return "1";
+  }
+}
