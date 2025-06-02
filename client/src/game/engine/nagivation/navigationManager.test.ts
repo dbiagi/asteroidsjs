@@ -1,6 +1,6 @@
 import { Assets, Container, Ticker } from "pixi.js";
-import { NavigationManager } from "@app/engine/nagivation/NavigationManager.ts";
-import { LoginScreen } from "@app/screens/LoginScreen.ts";
+import { NavigationManager } from "@app/game/engine/nagivation/NavigationManager.ts";
+import { LoginScreen } from "@app/game/screens/LoginScreen.ts";
 
 const width = 100;
 const height = 100;
@@ -18,7 +18,7 @@ jest.mock("pixi.js", () => ({
   })),
 }));
 
-jest.mock("@app/screens/LoginScreen.ts", () => ({
+jest.mock("@app/game/screens/LoginScreen.ts", () => ({
   LoginScreen: jest.fn().mockImplementation(() => ({
     id: jest.fn(),
     bundles: jest.fn().mockReturnValue([]),

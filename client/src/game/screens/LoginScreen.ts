@@ -1,5 +1,5 @@
-import { AppScreen } from "@app/engine/nagivation/AppScreen.ts";
-import { Screen } from "@app/screens/Screen.ts";
+import { AppScreen } from "@app/game/engine/nagivation/AppScreen.ts";
+import { Screen } from "@app/game/screens/Screen.ts";
 import { Sprite, Texture } from "pixi.js";
 
 const bundle = ["login"];

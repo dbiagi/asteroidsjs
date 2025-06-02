@@ -3,6 +3,7 @@ import { AssetPack } from "@assetpack/core";
 // @ts-expect-error TS2307: Cannot find module
 import { pixiPipes } from "@assetpack/core/pixi";
 import tsconfigPaths from "vite-tsconfig-paths";
+import react from '@vitejs/plugin-react'
 
 function assetpackPlugin(): Plugin {
   const config = {
@@ -54,5 +55,5 @@ export default defineConfig({
     port: 8080,
     open: true,
   },
-  plugins: [assetpackPlugin(), tsconfigPaths()],
+  plugins: [assetpackPlugin(), tsconfigPaths(), react()],
 });
