@@ -1,10 +1,10 @@
 import { Assets, Container, Ticker } from "pixi.js";
-import { AppScreen } from "./AppScreen.ts";
+import { AppStage } from "./AppStage.ts";
 
 export class NavigationManager {
   private container: Container = new Container();
   private background?: Container;
-  private currentScreen?: AppScreen;
+  private currentScreen?: AppStage;
   private ticker: Ticker;
 
   constructor(stage: Container, ticker: Ticker, background?: Container) {
@@ -17,7 +17,7 @@ export class NavigationManager {
     }
   }
 
-  public async showScreen(screen: AppScreen): Promise<void> {
+  public async showScreen(screen: AppStage): Promise<void> {
     if (this.currentScreen) {
       this.currentScreen.interactiveChildren = false;
     }
@@ -52,7 +52,7 @@ export class NavigationManager {
     this.currentScreen = screen;
   }
 
-  public async hideAndRemoveScreen(screen: AppScreen): Promise<void> {
+  public async hideAndRemoveScreen(screen: AppStage): Promise<void> {
     screen.interactiveChildren = false;
 
     screen.hide()?.();

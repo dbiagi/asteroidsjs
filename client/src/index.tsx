@@ -1,6 +1,7 @@
 import { createRoot } from "react-dom/client";
 import React, { StrictMode } from "react";
 import { App } from "@app/ui/App.tsx";
+import "./styles/main.css";
 
 (async () => {
   // const app = new Application();
@@ -23,5 +24,5 @@ import { App } from "@app/ui/App.tsx";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <App></App>
-  </StrictMode>
-)
+  </StrictMode>,
+);

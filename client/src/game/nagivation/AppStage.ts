@@ -5,7 +5,7 @@ export type OnLoadFunction = (progress: number) => void;
 export type HideFunction = () => Promise<void>;
 export type ResetFunction = () => void;
 
-export abstract class AppScreen extends Container {
+export abstract class AppStage extends Container {
   abstract id(): string;
 
   show(): Promise<void> {

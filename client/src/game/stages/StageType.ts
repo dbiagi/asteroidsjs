@@ -1,4 +1,4 @@
-export enum Screen {
+export enum StageType {
   Main = "Main",
   Login = "Login",
 }

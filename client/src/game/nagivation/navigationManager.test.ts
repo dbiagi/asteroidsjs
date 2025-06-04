@@ -1,6 +1,6 @@
 import { Assets, Container, Ticker } from "pixi.js";
-import { NavigationManager } from "@app/game/engine/nagivation/NavigationManager.ts";
-import { LoginScreen } from "@app/game/screens/LoginScreen.ts";
+import { NavigationManager } from "@app/game/nagivation/NavigationManager.ts";
+import { MainStage } from "@app/game/stages/MainStage.ts";
 
 const width = 100;
 const height = 100;
@@ -18,8 +18,8 @@ jest.mock("pixi.js", () => ({
   })),
 }));
 
-jest.mock("@app/game/screens/LoginScreen.ts", () => ({
-  LoginScreen: jest.fn().mockImplementation(() => ({
+jest.mock("@app/game/stages/MainStage.ts", () => ({
+  MainScreen: jest.fn().mockImplementation(() => ({
     id: jest.fn(),
     bundles: jest.fn().mockReturnValue([]),
     prepare: jest.fn(),
@@ -37,7 +37,7 @@ describe("NavigationManager", () => {
   const container = new Container();
   const ticker = new Ticker();
   const navigationManager = new NavigationManager(container, ticker);
-  const loginScreen = new LoginScreen();
+  const loginScreen = new MainStage();
 
   describe("showScreen", () => {
     it("given a bundle array should call Assets.loadBundle with the bundle array", async () => {

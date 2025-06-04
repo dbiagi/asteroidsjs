@@ -5,5 +5,5 @@ export function App() {
     <>
       <h1>AsteroidJS</h1>
     </>
-  )
+  );
 }

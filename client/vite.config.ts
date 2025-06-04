@@ -3,7 +3,9 @@ import { AssetPack } from "@assetpack/core";
 // @ts-expect-error TS2307: Cannot find module
 import { pixiPipes } from "@assetpack/core/pixi";
 import tsconfigPaths from "vite-tsconfig-paths";
-import react from '@vitejs/plugin-react'
+import react from "@vitejs/plugin-react";
+// @ts-expect-error TS2307: Cannot find module @tailwindcss/vite or its corresponding type declarations.
+import tailwindcss from "@tailwindcss/vite";
 
 function assetpackPlugin(): Plugin {
   const config = {
@@ -55,5 +57,5 @@ export default defineConfig({
     port: 8080,
     open: true,
   },
-  plugins: [assetpackPlugin(), tsconfigPaths(), react()],
+  plugins: [assetpackPlugin(), tsconfigPaths(), react(), tailwindcss()],
 });
