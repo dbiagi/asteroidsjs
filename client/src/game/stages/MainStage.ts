@@ -9,4 +9,14 @@ export class MainStage extends AppStage {
   id(): string {
     return StageType.Main;
   }
+
+  bundles(): string[] {
+    return ["main"];
+  }
+
+  prepare(): void {
+    console.log("MainStage initialized");
+
+
+  }
 }

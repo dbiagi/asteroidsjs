@@ -1,28 +1,13 @@
 import { createRoot } from "react-dom/client";
-import React, { StrictMode } from "react";
-import { App } from "@app/ui/App.tsx";
+import { StrictMode } from "react";
 import "./styles/main.css";
+import { RouterProvider } from "react-router";
+import router from "@app/ui/routes.tsx";
 
-(async () => {
-  // const app = new Application();
-  // await app.init({ background: "black", resizeTo: window });
-  //
-  // document.getElementById("pixi-container")!.appendChild(app.canvas);
-  //
-  // await Assets.init({ manifest, basePath: "public/assets" });
-  // const background = new Container({});
-  //
-  // const navigationManager = new NavigationManager(
-  //   app.stage,
-  //   app.ticker,
-  //   background,
-  // );
-  //
-  // await navigationManager.showScreen(new LoginScreen());
-})();
+const rootEl = document.getElementById("root");
 
-createRoot(document.getElementById("root")!).render(
+createRoot(rootEl!).render(
   <StrictMode>
-    <App></App>
+    <RouterProvider router={router} />
   </StrictMode>,
 );
