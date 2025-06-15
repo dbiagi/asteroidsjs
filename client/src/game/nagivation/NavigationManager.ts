@@ -2,18 +2,18 @@ import { Assets, Container, Ticker } from "pixi.js";
 import { AppStage } from "./AppStage.ts";
 
 export class NavigationManager {
-  private container: Container = new Container();
+  private mainContainer: Container = new Container();
   private background?: Container;
   private currentScreen?: AppStage;
   private ticker: Ticker;
 
   constructor(stage: Container, ticker: Ticker, background?: Container) {
-    stage.addChild(this.container);
+    stage.addChild(this.mainContainer);
     this.background = background;
     this.ticker = ticker;
 
     if (this.background) {
-      this.container.addChild(this.background);
+      this.mainContainer.addChild(this.background);
     }
   }
 
@@ -36,14 +36,14 @@ export class NavigationManager {
     }
 
     screen.prepare();
-    screen.resize(this.container.width, this.container.height);
+    screen.resize(this.mainContainer.width, this.mainContainer.height);
 
     const onUpdate = screen.onUpdate();
     if (onUpdate) {
       this.ticker.add(onUpdate, screen);
     }
 
-    this.container.addChild(screen);
+    this.mainContainer.addChild(screen);
 
     screen.interactiveChildren = false;
     await screen.show();
@@ -68,5 +68,12 @@ export class NavigationManager {
 
     screen.reset()?.();
     screen.destroy();
+  }
+
+  public getStageSize() {
+    return {
+      width: this.mainContainer.width,
+      height: this.mainContainer.height,
+    };
   }
 }
