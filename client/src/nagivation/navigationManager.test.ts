@@ -1,6 +1,6 @@
 import { Assets, Container, Ticker } from "pixi.js";
-import { NavigationManager } from "@app/game/nagivation/NavigationManager.ts";
-import { MainStage } from "@app/game/stages/MainStage.ts";
+import { NavigationManager } from "@app/nagivation/NavigationManager";
+import { MainStage } from "@app/stages/MainStage";
 
 const width = 100;
 const height = 100;
@@ -49,7 +49,7 @@ describe("NavigationManager", () => {
       const resizeSpy = jest.spyOn(loginScreen, "resize");
       const showSpy = jest.spyOn(loginScreen, "show");
 
-      await navigationManager.showScreen(loginScreen);
+      await navigationManager.showStage(loginScreen);
 
       expect(Assets.loadBundle).toHaveBeenCalledWith(
         bundles,

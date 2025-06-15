@@ -2,7 +2,7 @@ import { Container, Ticker } from "pixi.js";
 
 export type UpdateFunction = (time: Ticker) => void;
 export type OnLoadFunction = (progress: number) => void;
-export type HideFunction = () => Promise<void>;
+export type HideFunction = () => void;
 export type ResetFunction = () => void;
 
 export abstract class AppStage extends Container {

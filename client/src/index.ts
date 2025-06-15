@@ -1,8 +1,8 @@
 import { Application, Assets } from "pixi.js";
 import manifest from "@app/manifest.json";
-import { NavigationManager } from "@app/game/nagivation/NavigationManager.ts";
-import { MainStage } from "@app/game/stages/MainStage.ts";
-import { stateManager } from "@app/game/state/state.ts";
+import { NavigationManager } from "@app/nagivation/NavigationManager";
+import { MainStage } from "@app/stages/MainStage";
+import { stateManager } from "@app/state/state";
 
 const containerId = "gameContainer";
 
@@ -29,5 +29,11 @@ const containerId = "gameContainer";
 
   const navigationManager = new NavigationManager(app.stage, app.ticker);
 
-  await navigationManager.showScreen(new MainStage());
+  await navigationManager.showStage(new MainStage());
+
+  window.addEventListener("resize", () => {
+    const size = { width: app.renderer.width, height: app.renderer.height };
+    stateManager.setStageSize(size);
+    navigationManager.resize(size.width, size.height);
+  });
 })();
