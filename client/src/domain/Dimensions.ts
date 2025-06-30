@@ -1,14 +1,20 @@
 export class Position {
-  public x: number = 0;
-  public y: number = 0;
+  x: number = 0;
+  y: number = 0;
 }
 
 export class Size {
-  public width: number = 0;
-  public height: number = 0;
+  width: number = 0;
+  height: number = 0;
 }
 
-export class Speed {
-  public x: number = 0;
-  public y: number = 0;
+export enum Direction {
+  UP,
+  DOWN,
+  RIGHT,
+  LEFT,
 }
+
+export type Movement = {
+  [key in Direction]: number;
+};

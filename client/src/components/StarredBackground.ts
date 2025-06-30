@@ -9,7 +9,7 @@ export class StarredBackground extends Container {
     super();
 
     this.tilingSprite = new TilingSprite({
-      texture: Texture.from(textureId)
+      texture: Texture.from(textureId),
     });
 
     this.addChild(this.tilingSprite);

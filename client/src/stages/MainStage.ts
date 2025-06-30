@@ -1,15 +1,20 @@
-import { AppStage, HideFunction } from "@app/nagivation/AppStage";
+import {
+  AppStage,
+  HideFunction,
+  UpdateFunction,
+} from "@app/nagivation/AppStage";
 import { StageType } from "@app/stages/StageType";
-import { Container, Sprite, Texture } from "pixi.js";
+import { Container, Sprite, Texture, Ticker } from "pixi.js";
 import { StarredBackground } from "@app/components/StarredBackground";
 import { assets } from "@app/assets";
-import { Player } from "@app/domain/Player";
+import { LocalPlayer } from "@app/components/LocalPlayer";
+import { Direction } from "@app/domain/Dimensions";
 
 export class MainStage extends AppStage {
   private container: Container = new Container();
   private background?: StarredBackground;
   private asteroid: Container = new Container();
-  private localPlayer: Player = new Player();
+  private localPlayer: LocalPlayer = new LocalPlayer();
 
   constructor() {
     super();
@@ -33,6 +38,10 @@ export class MainStage extends AppStage {
     this.asteroid.addChild(img);
     this.container.addChild(this.asteroid);
     this.addChild(this.container);
+
+    this.localPlayer.init({ textureId: assets.BlueSpaceship });
+    this.localPlayer.position.set(30, 30);
+    this.container.addChild(this.localPlayer);
   }
 
   async show(): Promise<void> {
@@ -47,30 +56,58 @@ export class MainStage extends AppStage {
     return () => this.removeKeyAdapters;
   }
 
-  onKeydown(e: KeyboardEvent) {
-    console.log(e);
+  onUpdate(): UpdateFunction | null {
+    return (time: Ticker) => {
+      this.localPlayer.update(time.deltaTime);
+    };
+  }
+
+  private onKeyDown(e: KeyboardEvent) {
+    switch (e.key) {
+      case "ArrowRight":
+        this.localPlayer.move(Direction.RIGHT);
+        break;
+      case "ArrowLeft":
+        this.localPlayer.move(Direction.LEFT);
+        break;
+      case "ArrowUp":
+        this.localPlayer.move(Direction.UP);
+        break;
+      case "ArrowDown":
+        this.localPlayer.move(Direction.DOWN);
+        break;
+      case "Space":
+        this.localPlayer.fire();
+        break;
+    }
+  }
+
+  private onKeyUp(e: KeyboardEvent) {
+    console.log(e.code);
 
     switch (e.key) {
       case "ArrowRight":
-        this.asteroid.x += 10;
+        this.localPlayer.stop(Direction.RIGHT);
         break;
       case "ArrowLeft":
-        this.asteroid.x -= 10;
+        this.localPlayer.stop(Direction.LEFT);
         break;
       case "ArrowUp":
-        this.asteroid.y -= 10;
+        this.localPlayer.stop(Direction.UP);
         break;
       case "ArrowDown":
-        this.asteroid.y += 10;
+        this.localPlayer.stop(Direction.DOWN);
         break;
     }
   }
 
   private setupKeyAdapters() {
-    window.addEventListener("keydown", (e) => this.onKeydown(e));
+    window.addEventListener("keydown", (e) => this.onKeyDown(e));
+    window.addEventListener("keyup", (e) => this.onKeyUp(e));
   }
 
   private removeKeyAdapters() {
-    window.removeEventListener("keydown", (e) => this.onKeydown(e));
+    window.removeEventListener("keyup", (e) => this.onKeyUp(e));
+    window.removeEventListener("keydown", (e) => this.onKeyDown(e));
   }
 }
