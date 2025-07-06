@@ -1,8 +1,11 @@
 import { Direction, Movement } from "@app/domain/Dimensions";
-import { Player } from "./Player";
+import { Player, PlayerInitOptions } from "./Player";
+import { Projectile } from "./Projectile";
 
 export class LocalPlayer extends Player {
-  protected speed: number = 8;
+  private speed: number = 8;
+  private projectiles: Projectile[] = [];
+  private currentProjectileTemplate?: Projectile;
 
   private movement: Movement = {
     [Direction.UP]: 0,
@@ -10,6 +13,11 @@ export class LocalPlayer extends Player {
     [Direction.RIGHT]: 0,
     [Direction.LEFT]: 0,
   };
+
+  override init(opts: PlayerInitOptions) {
+    super.init(opts);
+    this.currentProjectileTemplate = new Projectile(opts.projectileTextureId);
+  }
 
   move(direction: Direction) {
     this.movement[direction] = this.speed;
@@ -35,6 +43,7 @@ export class LocalPlayer extends Player {
   }
 
   fire() {
+
   }
 
   private isMoving(): boolean {

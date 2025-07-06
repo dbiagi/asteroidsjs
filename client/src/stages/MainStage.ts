@@ -7,7 +7,7 @@ import { StageType } from "@app/stages/StageType";
 import { Container, Sprite, Texture, Ticker } from "pixi.js";
 import { StarredBackground } from "@app/components/StarredBackground";
 import { assets } from "@app/assets";
-import { LocalPlayer } from "@app/components/LocalPlayer";
+import { LocalPlayer } from "@app/components/player/LocalPlayer";
 import { Direction } from "@app/domain/Dimensions";
 
 export class MainStage extends AppStage {
@@ -39,7 +39,10 @@ export class MainStage extends AppStage {
     this.container.addChild(this.asteroid);
     this.addChild(this.container);
 
-    this.localPlayer.init({ textureId: assets.BlueSpaceship });
+    this.localPlayer.init({
+      playerTextureId: assets.BlueSpaceship,
+      projectileTextureId: assets.PlayerProjectile,
+    });
     this.localPlayer.position.set(30, 30);
     this.container.addChild(this.localPlayer);
   }

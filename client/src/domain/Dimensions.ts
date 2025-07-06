@@ -18,3 +18,8 @@ export enum Direction {
 export type Movement = {
   [key in Direction]: number;
 };
+
+export class Vector {
+  x: number = 0;
+  y: number = 0;
+}
